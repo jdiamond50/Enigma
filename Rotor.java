@@ -35,6 +35,14 @@ public class Rotor {
         this.wiring = wiring.clone();
     }
 
+    public void changeSetting(char setting) {
+        this.setting = setting - 'A';
+    }
+
+    public void clearOffset() {
+        offset = 0;
+    }
+
     /**
      * Rotates the rotor
      * @return True if the notch aligns and the next rotor should be rotated
