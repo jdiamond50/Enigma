@@ -9,12 +9,20 @@ public class EnigmaMachine {
         rotors = new ArrayList<Rotor>();
     }
 
+    // ----- TRANSLATION -----
+
     /**
      * Translate a string
      * @param input String to be translated (all uppercase, no spaces)
      * @return Translated String
      */
     public String translate(String input) {
+
+        // reset rotors to inital condition
+        for (int i = 0; i < rotors.size(); i++) {
+            rotors.get(i).clearOffset();
+        }
+
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < input.length(); i++) {
             result.append(translate(input.charAt(i)));
@@ -27,7 +35,7 @@ public class EnigmaMachine {
      * @param input char to be translated (uppercase)
      * @return Translated char
      */
-    public char translate(char input) {
+    private char translate(char input) {
         
         int curr = Character.toUpperCase(input) - 'A';
         
@@ -72,7 +80,17 @@ public class EnigmaMachine {
         rotors.clear();
     }
 
-
+    /**
+     * Update rotor settings to match input string (String length must match number of rotors)
+     * @param newSettings no spaces
+     */
+    public void changeRotorSettings(String newSettings) {
+        if (newSettings.length() != rotors.size()) throw new IllegalArgumentException("length of newSettings must match number of rotors");
+        newSettings = newSettings.toUpperCase();
+        for (int i = 0; i < newSettings.length(); i++) {
+            rotors.get(i).changeSetting(newSettings.charAt(i));
+        }
+    }
 
     // ----- REFLECTOR -----
 
