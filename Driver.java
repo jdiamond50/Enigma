@@ -17,9 +17,6 @@ public class Driver {
 
         machine.insertReflector(reflectorB);
 
-        String str = "AAAAA";
-        for (int i = 0; i < str.length(); i++) {
-            System.out.print(machine.translate(str.charAt(i)));
-        }
+        System.out.println(machine.translate("AAAAA"));
     }
 }
