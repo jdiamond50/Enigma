@@ -23,7 +23,7 @@ public class Rotor {
     }
 
     /**
-     * Constructor for the Rotor class
+     * Alternate constructor for the Rotor class
      * @param name
      * @param setting Initial settinf of the rotor (ex: 1 is a Caesar shift of the wiring by 1)
      * @param wiring mapping for each character
@@ -70,7 +70,7 @@ public class Rotor {
     public int reverseTranslation(int input) {
         int diff = offset - setting;
         for (int i = 0; i < wiring.length; i++) {
-            if (wiring[i] == Math.floorMod(input + diff, 26)) return (i - diff) % 26;
+            if (wiring[i] == Math.floorMod(input + diff, 26)) return Math.floorMod(i - diff, 26);
         }
         return -1;
     }

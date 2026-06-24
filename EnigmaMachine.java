@@ -52,7 +52,7 @@ public class EnigmaMachine {
         rotors.clear();
     }
 
-    
+
 
     // ----- REFLECTOR -----
 
