@@ -26,6 +26,7 @@ public class EnigmaMachine {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < input.length(); i++) {
             result.append(translate(input.charAt(i)));
+            System.out.println("rotor positions: " + this.getRotorPositions());
         }
         return result.toString();
     }
@@ -40,9 +41,15 @@ public class EnigmaMachine {
         int curr = Character.toUpperCase(input) - 'A';
         
         // rotate rotors
-        for (int i = rotors.size() - 1; i >= 0; i--) {
-            boolean rotateNext = rotors.get(i).rotate();
-            if (!rotateNext) break; // if notch isn't aligned
+        for (int i = 0; i < rotors.size(); i++) {
+            Rotor rotor = rotors.get(i);
+            if (i == rotors.size() - 1) {
+                if (rotor.getNotch() == rotor.getPosition()) rotors.get(i-1).rotate();    
+                rotor.rotate(); // rightmost rotor always rotates      
+            } else if (i != 0 && i < rotors.size() - 1 && rotor.getNotch() == rotor.getPosition()) { // non end rotors
+                rotor.rotate(); // double step
+                rotors.get(i-1).rotate();
+            }
         }
         
         // right to left through rotors
@@ -90,6 +97,12 @@ public class EnigmaMachine {
         for (int i = 0; i < newSettings.length(); i++) {
             rotors.get(i).changeSetting(newSettings.charAt(i));
         }
+    }
+
+    public String getRotorPositions() {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < rotors.size(); i++) result.append(rotors.get(i).getPosition());
+        return result.toString();
     }
 
     // ----- REFLECTOR -----

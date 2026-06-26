@@ -43,22 +43,47 @@ public class Rotor {
         this.wiring = wiring.clone();
     }
 
+    // ----- GETTERS -----
+
+    public String getName() { return name; }
+    public char getPosition() { return (char) (offset + 'A'); }
+    public char getNotch() { return (char) (notch + 'A'); }
+
+    // ----- SETTERS -----
+
+    /**
+     * Rotate the rotor's internal wiring to a new setting
+     * @param setting
+     */
     public void changeSetting(char setting) {
         this.setting = setting - 'A';
     }
 
-    public void clearOffset() {
-        offset = 0;
+    /**
+     * Change rotors position to new position
+     * @param position
+     */
+    public void changePosition(char position) {
+        offset = position;
     }
 
     /**
-     * Rotates the rotor
-     * @return True if the notch aligns and the next rotor should be rotated
+     * Resets the rotor's offset to its initial position
      */
-    public boolean rotate() {
-        if (offset++ == notch) return true;
-        return false;
+    public void clearOffset() {
+        offset = initialPosition;
     }
+
+    // ----- MECHANICAL -----
+
+    /**
+     * Rotates the rotor
+     */
+    public void rotate() {
+        offset++;
+    }
+
+    // ----- TRANSLATION -----
 
     /**
      * Rotor output in right to left direction of translation (before reflector)
@@ -67,7 +92,7 @@ public class Rotor {
      */
     public int forwardTranslation(int input) {
         int diff = offset - setting;
-        return(wiring[Math.floorMod(input + diff, 26)] - diff) % 26;
+        return Math.floorMod((wiring[Math.floorMod(input + diff, 26)] - diff), 26);
     }
 
     /**

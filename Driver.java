@@ -7,7 +7,7 @@ public class Driver {
 
         Rotor I = new Rotor("I", 'A', 'Q', 'A', "EKMFLGDQVZNTOWYHXUSPAIBRCJ");
         Rotor II = new Rotor("II", 'A', 'E', 'A', "AJDKSIRUXBLHWTMCQGZNPYFVOE");
-        Rotor III = new Rotor("III", 'A', 'V', 'A', "BDFHJLCPRTXVZNYEIWGAKMUSQO");
+        Rotor III = new Rotor("III", 'A', 'V', 'T', "BDFHJLCPRTXVZNYEIWGAKMUSQO");
 
         machine.insertRotor(I);
         machine.insertRotor(II);
@@ -18,21 +18,12 @@ public class Driver {
         machine.insertReflector(reflectorB);
 
         String initMessage = "AAAAA";
+        System.out.println("translating " + initMessage);
         String translatedMessage = machine.translate(initMessage);
+        System.out.println("translating " + translatedMessage);
         String retranslatedMessage = machine.translate(translatedMessage);
         System.out.println("initMessage: " + initMessage);
         System.out.println("translatedMessage: " + translatedMessage);
         System.out.println("retranslatedMessage: " + retranslatedMessage);
-
-        System.out.println("updating rotor settings");
-        machine.changeRotorSettings("BBB");
-
-        initMessage = "AAAAA";
-        translatedMessage = machine.translate(initMessage);
-        retranslatedMessage = machine.translate(translatedMessage);
-        System.out.println("initMessage: " + initMessage);
-        System.out.println("translatedMessage: " + translatedMessage);
-        System.out.println("retranslatedMessage: " + retranslatedMessage);
-
     }
 }
