@@ -1,19 +1,25 @@
 public class Rotor {
     private String name;
-    private int offset;         // gives current offset of rotor from initial position
-    private int setting;    // gives initial position of the rotor
+    private int initialPosition;
+    private int offset;         // gives current position of rotor
+    private int setting;        // gives rotation of internal wiring
     int[] wiring;
+    int notch;                  
 
     /**
      * Constructor for the Rotor class
      * @param name
-     * @param setting Initial setting of the rotor (ex: 'B' is a Caesar shift of the wiring by 1)
+     * @param setting Rotation of internal wiring of rotor
+     * @param notch Location of rotor notch (next rotor will rotate if this rotor rotates from notch to notch+1)
+     * @param initialPosition Initial setting of rotor (as appearing in the machine's window)
      * @param wiring 26 character String giving the mapping of each character
      */
-    public Rotor(String name, char setting, String wiring) {
+    public Rotor(String name, char setting, char notch, char initialPosition, String wiring) {
         this.name = name;
-        offset = 0;
         this.setting = setting - 'A';
+        this.notch = notch - 'A';
+        this.initialPosition = initialPosition - 'A';
+        offset = this.initialPosition;
 
         wiring = wiring.toUpperCase();
         this.wiring = new int[26];
@@ -25,13 +31,15 @@ public class Rotor {
     /**
      * Alternate constructor for the Rotor class
      * @param name
-     * @param setting Initial settinf of the rotor (ex: 1 is a Caesar shift of the wiring by 1)
+     * @param setting Initial position of the rotor (ex: 1 is a Caesar shift of the wiring by 1)
      * @param wiring mapping for each character
      */
-    public Rotor(String name, int setting, int[] wiring) {
+    public Rotor(String name, int setting, int notch, int initialPosition, int[] wiring) {
         this.name = name;
-        offset = 0;
         this.setting = setting;
+        this.notch = notch;
+        this.initialPosition = initialPosition;
+        offset = this.initialPosition;
         this.wiring = wiring.clone();
     }
 
@@ -48,7 +56,7 @@ public class Rotor {
      * @return True if the notch aligns and the next rotor should be rotated
      */
     public boolean rotate() {
-        offset = (offset + 1) % 26;
+        if (offset++ == notch) return true;
         return false;
     }
 

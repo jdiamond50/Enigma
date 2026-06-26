@@ -5,9 +5,9 @@ public class Driver {
 
         EnigmaMachine machine = new EnigmaMachine();
 
-        Rotor I = new Rotor("I", 'A', "EKMFLGDQVZNTOWYHXUSPAIBRCJ");
-        Rotor II = new Rotor("II", 'A', "AJDKSIRUXBLHWTMCQGZNPYFVOE");
-        Rotor III = new Rotor("III", 'A', "BDFHJLCPRTXVZNYEIWGAKMUSQO");
+        Rotor I = new Rotor("I", 'A', 'Q', 'A', "EKMFLGDQVZNTOWYHXUSPAIBRCJ");
+        Rotor II = new Rotor("II", 'A', 'E', 'A', "AJDKSIRUXBLHWTMCQGZNPYFVOE");
+        Rotor III = new Rotor("III", 'A', 'V', 'A', "BDFHJLCPRTXVZNYEIWGAKMUSQO");
 
         machine.insertRotor(I);
         machine.insertRotor(II);
